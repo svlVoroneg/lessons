@@ -19,7 +19,7 @@ from rest_framework.routers import DefaultRouter
 from ident.views import IdentViewSet, OrganizationViewSet
 
 router = DefaultRouter()
-router.register('user', IdentViewSet)
+router.register('users', IdentViewSet)
 router.register('org', OrganizationViewSet)
 
 urlpatterns = [
