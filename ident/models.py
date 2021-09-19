@@ -3,27 +3,44 @@ from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseU
 from django.utils.translation import ugettext_lazy as _
 
 
+class Organization(models.Model):
+    name = models.CharField(
+        max_length=64, verbose_name='Наименование организации',
+        unique=True, default='Владелец системы')
+
+    def __str__(self):
+        return self.name
+
+
 class CustomAccountManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, password, org_id, **extra_fields):
+    def create_user(self, email, password, org_id, **extra_fields):
         if not email:
             raise ValueError('email должен быть указан')
+        try:
+            cur_org = Organization.objects.get(pk=org_id)
+        except Organization.DoesNotExist:
+            raise ValueError('Указана несуществующая организация')
         email = self.normalize_email(email)
-        user = self.model(email=email, org_id=org_id, **extra_fields)
+        user = self.model(email=email, org_id=cur_org, **extra_fields)
         user.set_password(password)
         user.is_staff = False
         user.is_superuser = False
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password, org_id, **extra_fields):
-        extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, password, org_id, **extra_fields)
-
-    def create_superuser(self, email, password, org_id, **extra_fields):
-        extra_fields.setdefault('is_superuser', True)
-        user = self._create_user(email=email, password=password, org_id=org_id, **extra_fields)
+    def create_superuser(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('email должен быть указан')
+        try:
+            cur_org = Organization.objects.get(pk=1)
+        except Organization.DoesNotExist:
+            cur_org = Organization(name='Владелец системы')
+            cur_org.save()
+        email = self.normalize_email(email)
+        user = self.model(email=email, org_id=cur_org, **extra_fields)
+        user.set_password(password)
         user.is_active = True
         user.is_staff = True
         user.is_superuser = True
@@ -43,14 +60,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     3 - is_active
     """
     email = models.EmailField(unique=True)
-    org_id = models.IntegerField(verbose_name='Id организации')
+    org_id = models.ForeignKey(Organization, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150, blank=True)
     is_staff = models.BooleanField(default=False)
 
     objects = CustomAccountManager()
 
-    REQUIRED_FIELDS = ['org_id']
     USERNAME_FIELD = 'email'
 
     class Meta:
@@ -61,9 +77,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def get_full_name(self):
-        '''
-        Возвращает first_name и last_name с пробелом между ними.
-        '''
         full_name = '%s %s' % (self.first_name, self.last_name)
         return full_name.strip()
 
@@ -72,4 +85,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
