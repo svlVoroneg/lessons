@@ -18,15 +18,15 @@ class Organization(models.Model):
 class CustomAccountManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_user(self, email, password, org_id, **extra_fields):
+    def create_user(self, email, password, оrganization, **extra_fields):
         if not email:
             raise ValueError('email должен быть указан')
         try:
-            cur_org = Organization.objects.get(pk=org_id)
+            cur_org = Organization.objects.get(pk=оrganization)
         except Organization.DoesNotExist:
             raise ValueError('Указана несуществующая организация')
         email = self.normalize_email(email)
-        user = self.model(email=email, org_id=cur_org, **extra_fields)
+        user = self.model(email=email, оrganization=cur_org, **extra_fields)
         user.set_password(password)
         user.is_staff = False
         user.is_superuser = False
@@ -42,7 +42,7 @@ class CustomAccountManager(BaseUserManager):
             cur_org = Organization(name='Владелец системы')
             cur_org.save()
         email = self.normalize_email(email)
-        user = self.model(email=email, org_id=cur_org, **extra_fields)
+        user = self.model(email=email, оrganization=cur_org, **extra_fields)
         user.set_password(password)
         user.is_active = True
         user.is_staff = True
@@ -62,11 +62,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     2 - last_login
     3 - is_active
     """
-    email = models.EmailField(unique=True)
-    org_id = models.ForeignKey(Organization, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150, blank=True)
-    is_staff = models.BooleanField(default=False)
+    email = models.EmailField(unique=True, verbose_name='Е-mail(логин)')
+    оrganization = models.ForeignKey(Organization, on_delete=models.CASCADE, verbose_name='Организация')
+    first_name = models.CharField(max_length=150, verbose_name='Имя')
+    last_name = models.CharField(max_length=150, blank=True, verbose_name='Фамилия')
+    is_staff = models.BooleanField(default=False, verbose_name='Сотрудник')
 
     objects = CustomAccountManager()
 

@@ -13,5 +13,5 @@ class OrganizationForm(ModelForm):
 class CustomUserForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email', 'org_id')
+        fields = ('email', 'оrganization')
         error_css_class = 'error'
