@@ -1,12 +1,17 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import CustomUser
+from .models import Organization, CustomUser
 from .forms import CustomUserForm
-from .serializers import CustomUserSerializer
+from .serializers import OrganizationSerializer, CustomUserSerializer
 from django.shortcuts import render
 from django.http import HttpResponse
 
 
-class IdentViewSet(ModelViewSet):
+class OrganizationViewSet(ModelViewSet):
+    queryset = Organization.objects.all()
+    serializer_class = OrganizationSerializer
+
+
+class CustomUserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
@@ -18,7 +23,7 @@ def home(request):
             form.save()
             return HttpResponse("Пользователь успешно создан.")
         else:
-            return HttpResponse("Ошибка создания.")
+            return HttpResponse("Не выполнены правила для пароля.")
     else:
         form = CustomUserForm()
 

@@ -1,0 +1,17 @@
+{
+    "NameOrg": "Учебная организация",
+    "users": [
+        {
+            "firstName": "Alice3",
+            "lastName": "Good",
+            "email": "alice3@ya.ru",
+            "password": "111"
+        },
+        {
+            "firstName": "Bob3",
+            "lastName": "Bad",
+            "email": "bob3@ya.ru",
+            "password": "222"
+        }
+    ]
+}

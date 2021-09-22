@@ -1,9 +1,17 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import Organization, CustomUser
+
+
+class OrganizationForm(ModelForm):
+    class Meta:
+        model = Organization
+        fields = ('name', )
+
 
 class CustomUserForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'org_id')
+        fields = ('email', 'org_id')
         error_css_class = 'error'

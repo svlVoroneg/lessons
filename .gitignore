@@ -1,6 +1,4 @@
-authors/__pycache__/
-Rest/__pycache__/
-ident/migrations/__pycache__/ 
-ident/management/commands/__pycache__/
-__pycache__/
+db.sqlite3
+node_modules
+__pycache__
 .idea/

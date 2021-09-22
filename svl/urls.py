@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from ident.views import IdentViewSet
+from ident.views import CustomUserViewSet, OrganizationViewSet
+from ptd.views import ProjectViewSet, ToDoViewSet
 
 router = DefaultRouter()
-router.register('ident', IdentViewSet)
+router.register('users', CustomUserViewSet)
+router.register('org', OrganizationViewSet)
+router.register('proj', ProjectViewSet)
+router.register('todo', ToDoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
