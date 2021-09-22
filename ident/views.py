@@ -11,7 +11,7 @@ class OrganizationViewSet(ModelViewSet):
     serializer_class = OrganizationSerializer
 
 
-class IdentViewSet(ModelViewSet):
+class CustomUserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 

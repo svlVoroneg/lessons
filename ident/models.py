@@ -1,12 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
-from django.utils.translation import ugettext_lazy as _
 
 
 class Organization(models.Model):
     name = models.CharField(
         max_length=64, verbose_name='Наименование организации',
         unique=True, default='Владелец системы')
+
+    class Meta:
+        verbose_name = 'Организация'
+        verbose_name_plural = 'Организации'
 
     def __str__(self):
         return self.name
@@ -70,8 +73,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        verbose_name = _('Пользователь')
-        verbose_name_plural = _('Пользователи')
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
     def get_short_name(self):
         return self.email

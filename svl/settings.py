@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'ident',
+    'ptd',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -63,8 +64,7 @@ ROOT_URLCONF = 'svl.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,3 +133,21 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#  Для изменения стиля JSON представления со snake_case на CamelCase
+#  установить пакет djangorestframework-camel-case и заменить на рендеры из комментариев
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        #  стандартный рендер в стиле snake_case
+        'rest_framework.renderers.JSONRenderer',
+        #  рендер в стиле CamelCase  (модуль )
+        #  'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+    ]
+}
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append(
+        #  стандартный рендер в стиле snake_case
+        'rest_framework.renderers.BrowsableAPIRenderer'
+        #  рендер в стиле CamelCase JSON (модуль djangorestframework-camel-case)
+        #  'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer'
+    )

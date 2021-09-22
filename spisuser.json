@@ -2,16 +2,16 @@
     "NameOrg": "Учебная организация",
     "users": [
         {
-            "firstName": "Alice",
+            "firstName": "Alice3",
             "lastName": "Good",
-            "email": "alice2@ya.ru",
-            "password": "3Ir1Q50nYw"
+            "email": "alice3@ya.ru",
+            "password": "111"
         },
         {
-            "firstName": "Bob",
+            "firstName": "Bob3",
             "lastName": "Bad",
-            "email": "bob2@ya.ru",
-            "password": "QPudlvD1G6"
+            "email": "bob3@ya.ru",
+            "password": "222"
         }
     ]
 }
