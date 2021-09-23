@@ -24,7 +24,12 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <UserList users = {this.state.users}/>
+                <ul> Меню
+                    <li>Пункт 1</li>
+                    <li>Пункт 2</li>
+                </ul>
+                <div><UserList users = {this.state.users}/></div>
+                <footer>Copyright Вячеслав Семенов</footer>
             </div>
         )
     }

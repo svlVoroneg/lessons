@@ -11,4 +11,4 @@ class OrganizationSerializer(HyperlinkedModelSerializer):
 class CustomUserSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'org_id')
+        fields = ('email', 'first_name', 'last_name', 'organization')
