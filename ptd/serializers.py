@@ -9,10 +9,13 @@ class ToDoSerializer(HyperlinkedModelSerializer):
         fields = '__all__'
 
 
+'''  Блок примеров разного вида сериализаторов (урок 3)
 '''
+
+
 # Варианты, работаюшие с HyperlinkedModelSerializer (5):
 # Для пользователей, работающих с проектом будут сгенерированы гиперссылки
-class ProjectSerializer(HyperlinkedModelSerializer):
+class HyperlinkedProjectSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
@@ -24,7 +27,6 @@ class ProjectSerializer(HyperlinkedModelSerializer):
 #    note = serializers.SlugRelatedField(read_only=True, many=True, slug_field='text_todo')
 #  5 Вставка ссылок на заметки
     note = serializers.HyperlinkedIdentityField(read_only=True, many=True, view_name='todo-detail')
-'''
 
 
 # Для пользователей, работающих с проектом будут сгенерированы pk

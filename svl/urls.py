@@ -18,11 +18,17 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from ident.views import CustomUserViewSet, OrganizationViewSet
 from ptd.views import ProjectViewSet, ToDoViewSet
+# Определение второго сериализатора для одной модели (урок 3)
+from ptd.views import HyperlinkedProjectViewSet
 
 router = DefaultRouter()
 router.register('users', CustomUserViewSet)
 router.register('org', OrganizationViewSet)
-router.register('proj', ProjectViewSet)
+
+router.register('project', ProjectViewSet, basename='project')
+# если несколько сериализаторов строятся на одной модели,
+# то для последующих необходимо определить basename
+router.register('hl_proj', HyperlinkedProjectViewSet, basename='hl_proj')
 router.register('todo', ToDoViewSet)
 
 urlpatterns = [
