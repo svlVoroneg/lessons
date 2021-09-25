@@ -39,7 +39,7 @@ class Command(BaseCommand):
             CustomUser.objects.create_user(
                 email=us['email'],
                 password=us['password'],
-                оrganization=org.pk,
+                organization=org.pk,
                 first_name=us['firstName'],
                 last_name=us['lastName'])
             self.stdout.write(self.style.SQL_COLTYPE('Создан тестовый пользователь ' + us['email']))

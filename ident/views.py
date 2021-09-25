@@ -1,19 +1,21 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from .models import Organization, CustomUser
-from .forms import CustomUserForm
 from .serializers import OrganizationSerializer, CustomUserSerializer
+# импорты для формы
+from .forms import CustomUserForm
 from django.shortcuts import render
 from django.http import HttpResponse
+
+
+class CustomUserView(GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
 
 
 class OrganizationViewSet(ModelViewSet):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
-
-
-class CustomUserViewSet(ModelViewSet):
-    queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
 
 
 def home(request):

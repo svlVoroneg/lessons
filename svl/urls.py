@@ -16,24 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from ident.views import CustomUserViewSet, OrganizationViewSet
-from ptd.views import ProjectViewSet, ToDoViewSet
-# Определение второго сериализатора для одной модели (урок 3)
-from ptd.views import HyperlinkedProjectViewSet
+from ident.views import CustomUserView, OrganizationViewSet
+from ptd.views import ProjectViewSet, ToDoView
 
 router = DefaultRouter()
-router.register('users', CustomUserViewSet)
-router.register('org', OrganizationViewSet)
-
+router.register('users', CustomUserView, basename='users')
 router.register('project', ProjectViewSet, basename='project')
-# если несколько сериализаторов строятся на одной модели,
-# то для последующих необходимо определить basename
-router.register('hl_proj', HyperlinkedProjectViewSet, basename='hl_proj')
-router.register('todo', ToDoViewSet)
+router.register('todo', ToDoView, basename='todo')
+#  Дополнение моей модели
+router.register('org', OrganizationViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    #  url для удобства отладки
+    path('api-auth/', include('rest_framework.urls')),
     path('', include('ident.urls')),
 ]
