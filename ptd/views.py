@@ -28,7 +28,7 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 
 #  Решил пойти по пути написания минимума кода и переопределил две операции
 class ToDoView(GenericViewSet, ListModelMixin,  UpdateModelMixin, CreateModelMixin):
-    queryset = ToDo.objects.all().filter(is_active=True)
+    queryset = ToDo.objects.all()
     #  Работает с ModelSerializer не работает с HyperlinkedModelSerializer
     serializer_class = ToDoSerializer
     pagination_class = ToDoLimitOffsetPagination
