@@ -21,8 +21,8 @@ from ptd.views import ProjectViewSet, ToDoView
 
 router = DefaultRouter()
 router.register('users', CustomUserView, basename='users')
-router.register('project', ProjectViewSet, basename='project')
-router.register('todo', ToDoView, basename='todo')
+router.register('projects', ProjectViewSet, basename='projects')
+router.register('todos', ToDoView, basename='todos')
 #  Дополнение моей модели
 router.register('org', OrganizationViewSet)
 

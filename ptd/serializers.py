@@ -17,7 +17,7 @@ class ProjectSerializer(ModelSerializer):
 #   Вставка ссылок на заметки
 #    note = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='todo-detail')
 #   Вставка словаря из заметок (в том числе содержит и ссылку на заметки)
-    note = ToDoSerializer(read_only=True, many=True)
+#    note = ToDoSerializer(read_only=True, many=True)
 
 
 '''  Блок примеров разного вида сериализаторов (урок 3)

@@ -67,6 +67,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, verbose_name='Имя')
     last_name = models.CharField(max_length=150, blank=True, verbose_name='Фамилия')
     is_staff = models.BooleanField(default=False, verbose_name='Сотрудник')
+    is_activated = models.BooleanField(default=True, verbose_name='Прошел активацию?')
 
     objects = CustomAccountManager()
 

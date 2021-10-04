@@ -1,0 +1,9 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<h2>Профиль пользователя {{ user.email }}</h2>
+<p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+<h3>Ваши Заявки </h3>
+{% endblock %}

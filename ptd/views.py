@@ -18,7 +18,7 @@ class ProjectViewSet(ModelViewSet):
     # renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    pagination_class = ProjectLimitOffsetPagination
+#    pagination_class = ProjectLimitOffsetPagination
     filterset_class = ProjectFilter
 
 
@@ -31,7 +31,7 @@ class ToDoView(GenericViewSet, ListModelMixin,  UpdateModelMixin, CreateModelMix
     queryset = ToDo.objects.all()
     #  Работает с ModelSerializer не работает с HyperlinkedModelSerializer
     serializer_class = ToDoSerializer
-    pagination_class = ToDoLimitOffsetPagination
+#    pagination_class = ToDoLimitOffsetPagination
     filterset_class = ToDoFilter
 
     def destroy(self, request, *args, **kwargs):
@@ -39,7 +39,7 @@ class ToDoView(GenericViewSet, ListModelMixin,  UpdateModelMixin, CreateModelMix
         instance = self.get_object()
         instance.is_active = False
         instance.save(update_fields=['is_active'])
-        #  не уверен, что правмльно, но ответ сохранил как в destroy
+        #  не уверен, что правильно, но ответ сохранил как в destroy
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self, request, *args, **kwargs):
