@@ -1,5 +1,5 @@
 from django.db import models
-import ident.models
+from django.conf import settings
 
 
 # Обращение к альтернативному представлению Проекта в БД
@@ -7,12 +7,12 @@ import ident.models
 class ProjView(models.Model):
     class Meta:
         managed = False    #  Указатель, что объект в БД создан без использования ORM
-        verbose_name = 'Проект'
-        verbose_name_plural = 'Проекты'
+        verbose_name = 'Проект(просмотр)'
+        verbose_name_plural = 'Проекты(просмотр)'
 
     name = models.CharField(max_length=64, verbose_name='Наименование проекта', unique=True)
     repo = models.URLField(verbose_name='Ссылка на репозиторий', blank=True)
-    users = models.ManyToManyField(ident.models.CustomUser)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Project(models.Model):
 
     name = models.CharField(max_length=64, verbose_name='Наименование проекта', unique=True)
     repo = models.URLField(verbose_name='Ссылка на репозиторий', blank=True)
-    users = models.ManyToManyField(ident.models.CustomUser)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
         return self.name
@@ -46,7 +46,7 @@ class ToDo(models.Model):
     created = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     modified = models.DateTimeField(verbose_name='Дата обновления', auto_now=True)
     is_active = models.BooleanField(verbose_name='Признак активности заявки', default=True)
-    user = models.ForeignKey(ident.models.CustomUser, on_delete=models.PROTECT, related_name='work')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name='work')
     #  Переопределение возвращаемого результата - только активные заметки
     objects = ToDoActiveManager()
     # сохранение  стандартного менеджера (для реализации возможности восстановления заметок)
