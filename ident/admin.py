@@ -1,12 +1,9 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext, gettext_lazy as _
 
 from .models import CustomUser, Organization
-from django.utils.translation import gettext_lazy as _
 
 
 class UserCreationForm(forms.ModelForm):
@@ -32,26 +29,18 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = CustomUser
-        fields = ('organization', 'email', 'password', 'first_name', 'last_name', 'is_active')
-
-
-class MyUserAdmin(BaseUserAdmin):
-    # The forms to add and change user instances
-    form = UserChangeForm
+class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     list_display = ('email', 'first_name', 'last_name', 'organization', 'is_staff', 'is_activated')
     list_filter = ('is_activated',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'organization')}),
-        (_('Permissions'), {'fields': (
-            'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'), }),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (None, {'fields': ('organization', 'email', 'password')}),
+        (_('Personal info'), {'fields': (('first_name', 'last_name'),)}),
+        (_('Permissions'), {'fields': (('is_active', 'is_staff'), 'groups', 'user_permissions'), }),
+        (_('Important dates'), {
+            'classes': ('collapse',),
+            'fields': (('last_login', 'date_joined'),)
+        }),
     )
     add_fieldsets = (
         (None, {
@@ -61,8 +50,7 @@ class MyUserAdmin(BaseUserAdmin):
     )
     search_fields = ('first_name', 'last_name', 'email')
     ordering = ('email',)
-    filter_horizontal = ()
 
 
 admin.site.register(Organization)
-admin.site.register(CustomUser, MyUserAdmin)
+admin.site.register(CustomUser, UserAdmin)

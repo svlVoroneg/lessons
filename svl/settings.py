@@ -146,6 +146,12 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        #  Для отключения лишних типов авторизации закоментировать соответствующую строку
+        'rest_framework.authentication.BasicAuthentication',  # Базовая авторизация
+        'rest_framework.authentication.SessionAuthentication',  # Сессионная авторизация
+        'rest_framework.authentication.TokenAuthentication',  # Авторизация по токену
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
     ]
