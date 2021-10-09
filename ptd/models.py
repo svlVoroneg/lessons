@@ -6,7 +6,7 @@ from django.conf import settings
 # create view ptd_projview as select * from ptd_project
 class ProjView(models.Model):
     class Meta:
-        managed = False    #  Указатель, что объект в БД создан без использования ORM
+        managed = False  # Указатель, что объект в БД создан без использования ORM
         verbose_name = 'Проект(просмотр)'
         verbose_name_plural = 'Проекты(просмотр)'
 

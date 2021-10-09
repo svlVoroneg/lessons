@@ -1,0 +1,216 @@
+[
+{
+ "model": "sessions.session",
+ "pk": "105eoww322s16v37nyvep5smoj9z4y3t",
+ "fields": {
+  "session_data": ".eJxVjEEOwiAQRe_C2pBSBkpduu8ZCMwMUjWQlHZlvLtt0oVu_3vvv4UP25r91njxM4mrUOLyu8WATy4HoEco9yqxlnWZozwUedImp0r8up3u30EOLe812w5SMr0DjASKOZFTLlky5HruLDgcg8FBM-gISByUGVM0mvSewSA-X_-BOKg:1mYsMi:3Zu7acxDXmlB7f6IkWklDwEgUMqjt1aIQBLB4DkBTU8",
+  "expire_date": "2021-10-22T16:04:56.478Z"
+ }
+},
+{
+ "model": "authtoken.token",
+ "pk": "7a17be3f1fcf8924f4cd75feeb769cf0565ac801",
+ "fields": {
+  "user": 1,
+  "created": "2021-10-06T20:10:10.768Z"
+ }
+},
+{
+ "model": "ident.organization",
+ "pk": 1,
+ "fields": {
+  "name": "Владелец системы"
+ }
+},
+{
+ "model": "ident.organization",
+ "pk": 2,
+ "fields": {
+  "name": "Учебная организация"
+ }
+},
+{
+ "model": "ident.customuser",
+ "pk": 1,
+ "fields": {
+  "password": "pbkdf2_sha256$260000$rwaiZRe9iFpbmpRO7LAdA8$G6aEH/kBc+p9JaLouCtNomm8VSII2kDn1AfC6E1M1PI=",
+  "last_login": "2021-10-08T16:04:56.441Z",
+  "is_superuser": true,
+  "email": "svl@35r.ru",
+  "organization": 1,
+  "first_name": "Вячеслав",
+  "last_name": "",
+  "is_staff": true,
+  "is_active": true,
+  "date_joined": "2021-10-06T10:02:38Z",
+  "is_activated": true,
+  "groups": [
+   1
+  ],
+  "user_permissions": []
+ }
+},
+{
+ "model": "ident.customuser",
+ "pk": 2,
+ "fields": {
+  "password": "pbkdf2_sha256$260000$396bPxEsrCnmxEOHS4K0wI$MPWT7Vl+bZNphLOlp9w0PIn2JxgA8Ydrg8D5H4AkO94=",
+  "last_login": null,
+  "is_superuser": false,
+  "email": "alice3@ya.ru",
+  "organization": 2,
+  "first_name": "Alice3",
+  "last_name": "Good",
+  "is_staff": false,
+  "is_active": true,
+  "date_joined": "2021-10-06T10:02:38.957Z",
+  "is_activated": true,
+  "groups": [],
+  "user_permissions": []
+ }
+},
+{
+ "model": "ident.customuser",
+ "pk": 3,
+ "fields": {
+  "password": "pbkdf2_sha256$260000$6w7v4jmIbPGQnM1GgXqQHG$j0fJW6iH/xqmskrGqxpdeX3liHPJS8J5WTjXL1rPQtQ=",
+  "last_login": "2021-10-06T19:01:34.870Z",
+  "is_superuser": false,
+  "email": "bob3@ya.ru",
+  "organization": 2,
+  "first_name": "Bob3",
+  "last_name": "Bad",
+  "is_staff": false,
+  "is_active": true,
+  "date_joined": "2021-10-06T10:02:39Z",
+  "is_activated": true,
+  "groups": [
+   1
+  ],
+  "user_permissions": []
+ }
+},
+{
+ "model": "ident.customuser",
+ "pk": 4,
+ "fields": {
+  "password": "pbkdf2_sha256$260000$1nawKFEax0H1NqxC2PwdGX$T8UlWKCllz1zmganIYAEiLg2x9/VzbBLOO1AEJByGvs=",
+  "last_login": null,
+  "is_superuser": false,
+  "email": "masha@ya.ru",
+  "organization": 2,
+  "first_name": "Маша",
+  "last_name": "",
+  "is_staff": false,
+  "is_active": true,
+  "date_joined": "2021-10-06T10:18:26Z",
+  "is_activated": true,
+  "groups": [
+   3
+  ],
+  "user_permissions": []
+ }
+},
+{
+ "model": "ident.customuser",
+ "pk": 5,
+ "fields": {
+  "password": "pbkdf2_sha256$260000$tE6TvKBTQ2aU0UL0dOsoik$0AEk6vfzP7pVHHV3NSvsmjh09wZ6DF2NaMh8BXMxARA=",
+  "last_login": null,
+  "is_superuser": false,
+  "email": "svl@ya.ru",
+  "organization": 2,
+  "first_name": "Вячеслав",
+  "last_name": "",
+  "is_staff": false,
+  "is_active": true,
+  "date_joined": "2021-10-06T18:49:54.781Z",
+  "is_activated": true,
+  "groups": [],
+  "user_permissions": []
+ }
+},
+{
+ "model": "ptd.project",
+ "pk": 1,
+ "fields": {
+  "name": "Первый проект",
+  "repo": "",
+  "users": [
+   2,
+   3
+  ]
+ }
+},
+{
+ "model": "ptd.project",
+ "pk": 2,
+ "fields": {
+  "name": "Второй проект",
+  "repo": "",
+  "users": [
+   1
+  ]
+ }
+},
+{
+ "model": "ptd.project",
+ "pk": 3,
+ "fields": {
+  "name": "Тест теста",
+  "repo": "",
+  "users": [
+   2,
+   3
+  ]
+ }
+},
+{
+ "model": "ptd.todo",
+ "pk": 1,
+ "fields": {
+  "project": 1,
+  "text_todo": "Первая в первом",
+  "created": "2021-10-06T20:38:47.365Z",
+  "modified": "2021-10-06T20:38:47.365Z",
+  "is_active": true,
+  "user": 3
+ }
+},
+{
+ "model": "ptd.todo",
+ "pk": 2,
+ "fields": {
+  "project": 1,
+  "text_todo": "Вторая в первом",
+  "created": "2021-10-06T20:39:06.090Z",
+  "modified": "2021-10-06T20:39:06.090Z",
+  "is_active": true,
+  "user": 1
+ }
+},
+{
+ "model": "ptd.todo",
+ "pk": 3,
+ "fields": {
+  "project": 2,
+  "text_todo": "Первая во втором",
+  "created": "2021-10-06T20:39:26.764Z",
+  "modified": "2021-10-06T20:39:26.764Z",
+  "is_active": true,
+  "user": 4
+ }
+},
+{
+ "model": "ptd.todo",
+ "pk": 5,
+ "fields": {
+  "project": 1,
+  "text_todo": "Добавление заметки",
+  "created": "2021-10-08T18:41:09.654Z",
+  "modified": "2021-10-08T18:41:09.654Z",
+  "is_active": true,
+  "user": 1
+ }
+}
+]

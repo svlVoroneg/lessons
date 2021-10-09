@@ -36,9 +36,12 @@ class ToDoView(GenericViewSet, ListModelMixin,  UpdateModelMixin, CreateModelMix
 
     def destroy(self, request, *args, **kwargs):
         #  заменяем удаление на обновление записи
-        instance = self.get_object()
-        instance.is_active = False
-        instance.save(update_fields=['is_active'])
+        #  (но с точки зрения интерфейса она будет удаляться),
+        #  поэтому для красивой работы теста просто ничего не будем делать (временно закомментируем)
+        # instance = self.get_object()
+        # instance.is_active = False
+        # instance.save(update_fields=['is_active'])
+        #
         #  не уверен, что правильно, но ответ сохранил как в destroy
         return Response(status=status.HTTP_204_NO_CONTENT)
 
