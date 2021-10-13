@@ -37,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'django_filters',
-    'corsheaders',
-    'bootstrap4',
-    'ident',
-    'ptd',
+    'rest_framework',  # Rest-API
+    'rest_framework.authtoken',  # Служба генерации токенов по запросу
+    'django_filters',  # Фильтрация в Rest-API
+    'corsheaders',  # Разрешения на обращение к Web серверу
+    'bootstrap4',  # форматирование визуальных страниц
+    'drf_yasg',  # Генерация документации по API
+    'ident',  # Измененная модель пользователя
+    'ptd',  # проект и заметка
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -152,6 +153,20 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',  # Сессионная авторизация
         'rest_framework.authentication.TokenAuthentication',  # Авторизация по токену
     ],
+    #  Номер версии API передается в URL пример: http://127.0.0.1:8000/api/2.0/users/
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+
+    #  Номер версии API передается в URL пример: http://127.0.0.1:8000/api/users/v1
+    # ломается совместимость с "нормальными" URL, заданными в приложении
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+
+    # Номер версии API передается в параметре URL пример: http://127.0.0.1:8000/api/users/?version=1.0
+    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+
+    # Номер версии API передается в заголовке URL пример: http://127.0.0.1:8000/api/users/
+    # для проверки использовать команду: manage.py test_API_version
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
     ]

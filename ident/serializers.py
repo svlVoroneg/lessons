@@ -1,4 +1,4 @@
-from rest_framework.serializers import HyperlinkedModelSerializer
+from rest_framework.serializers import HyperlinkedModelSerializer, ModelSerializer
 from .models import Organization, CustomUser
 from ptd.serializers import ToDoSerializer
 
@@ -9,10 +9,13 @@ class OrganizationSerializer(HyperlinkedModelSerializer):
         fields = ('name', )
 
 
-class CustomUserSerializer(HyperlinkedModelSerializer):
+class CustomUserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id', 'email', 'first_name', 'last_name', 'organization')
 
-    #   Вставка словаря из заметок (в том числе содержит и ссылку на заметки)
-    # work = ToDoSerializer(read_only=True, many=True)
+
+class UserSerializerDocApi(ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'email', 'first_name', 'last_name', 'organization', 'is_staff', 'is_superuser')

@@ -1,7 +1,8 @@
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from .models import Organization, CustomUser
-from .serializers import OrganizationSerializer, CustomUserSerializer
+from .serializers import OrganizationSerializer, CustomUserSerializer, UserSerializerDocApi
+from rest_framework import generics
 
 
 class CustomUserView(GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateModelMixin):
@@ -12,6 +13,28 @@ class CustomUserView(GenericViewSet, ListModelMixin, RetrieveModelMixin, UpdateM
 class OrganizationViewSet(ModelViewSet):
     queryset = Organization.objects.all()
     serializer_class = OrganizationSerializer
+
+
+class UserListAPIView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializerDocApi
+
+    def get_serializer_class(self):
+        if self.request.version == '1.0':
+            return CustomUserSerializer
+        return UserSerializerDocApi
+
+
+class UserView(ModelViewSet):
+    serializer_class = CustomUserSerializer
+    queryset = CustomUser.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.version == '1.0':
+            return CustomUserSerializer
+        return UserSerializerDocApi
+
+
 
 """
         импорты для форм 
