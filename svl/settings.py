@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # Rest-API
     'rest_framework.authtoken',  # Служба генерации токенов по запросу
-    'django_filters',  # Фильтрация в Rest-API
+    'django_filters',  # Фильтрация в Rest-API, GraphQL
     'corsheaders',  # Разрешения на обращение к Web серверу
     'bootstrap4',  # форматирование визуальных страниц
     'drf_yasg',  # Генерация документации по API
+    'graphene_django',  # GraphQL
     'ident',  # Измененная модель пользователя
     'ptd',  # проект и заметка
 ]
@@ -51,6 +52,10 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000'
 ]
+
+GRAPHENE = {  # GraphQL из пакета graphene-django
+    'SCHEMA': "ptd.schema.schema"
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

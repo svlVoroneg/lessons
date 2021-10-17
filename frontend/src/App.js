@@ -28,10 +28,8 @@ class App extends React.Component {
 
     getToken(login, password) {
         this.setState({'userlogin': login })
-        console.log(login)
         axios.post('http://127.0.0.1:8000/api-token-auth/', {"username": login, "password": password})
         .then(response => {
-            console.log(response.data.token)
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('userlogin', login)
             this.setState({'token': response.data.token}, this.loadData)
@@ -66,8 +64,6 @@ class App extends React.Component {
             const user = users.filter((st) => st.email === this.state.userlogin)
             this.setState( {'users': users })
             this.setState({'user': user[0] })
-            console.log('Select user')
-            console.log(this.state.user)
         })
         .catch(error => {
             console.log(error)
@@ -75,9 +71,9 @@ class App extends React.Component {
                 'users': []
             })
         })
-        axios.get('http://127.0.0.1:8000/api/projects/', {headers})
+        axios.get('http://127.0.0.1:8000/graphql/?query={allProjects{id name repo}}')
         .then(response => {
-            const projects = response.data
+            const projects = response.data.data.allProjects
             this.setState( {
                 'projects': projects
             })
