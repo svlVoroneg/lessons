@@ -7,7 +7,7 @@ import ProjectToDoList from './components/ProjectToDo.js';
 import UserToDoList from './components/UserToDo.js';
 import ToDoList from "./components/ToDo.js";
 import LoginForm from "./components/LoginForm.js";
-
+import ProjectForm from "./components/ProjectForm.js"
 
 const NotFound = ({location}) => {
     return (<div>Страница не найдена: {location.pathname}</div>)
@@ -54,6 +54,56 @@ class App extends React.Component {
     getHeaders() {
         if (this.isAuthenticated()) { return {'Authorization': 'Token ' + this.state.token} }
         return {}
+    }
+
+    createProject(name, repo, users) {
+        const headers = this.getHeaders()
+        axios.post('http://127.0.0.1:8000/api/projects/',
+            {'name': name, 'repo': repo, 'users': users} ,
+            {headers})
+        .then(response => {
+            this.loadData();
+        }).catch(error => {console.log(error)})
+    }
+
+    updateProject(id, name, repo, users) {
+        const headers = this.getHeaders()
+        axios.put(`http://127.0.0.1:8000/api/projects/${id}/`,
+            {'name': name, 'repo': repo, 'users': users} ,
+            {headers})
+        .then(response => {
+            this.loadData();
+        }).catch(error => {console.log(error)})
+    }
+
+    deleteProject(id) {
+        const headers = this.getHeaders()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${id}/`, {headers})
+        .then(response => {
+            this.loadData();
+        }).catch(error => {console.log(error)})
+    }
+
+    createToDo(project, text_todo, user) {
+        const headers = this.getHeaders()
+        console.log(text_todo)
+        console.log(user)
+        axios.post('http://127.0.0.1:8000/api/todos/',
+            {'project': project, 'text_todo': text_todo, 'user': user} ,
+            {headers})
+        .then(response => {
+            this.loadData();
+        }).catch(error => {console.log(error)})
+    }
+
+    deleteToDo(id) {
+        const headers = this.getHeaders()
+        axios.delete(`http://127.0.0.1:8000/api/todos/${id}/`, {headers})
+        .then(response => {
+            this.setState( {
+                'todos': this.state.todos.filter((todo) => todo.id !== id)
+            })
+        }).catch(error => {console.log(error)})
     }
 
     loadData() {
@@ -125,15 +175,26 @@ class App extends React.Component {
                        <ul> Меню
                            <li><Link to='/users'>Список пользователей</Link></li>
                            <li><Link to='/projects'>Список проектов</Link></li>
+                           <li><Link to='/projects/create'>Создать проект</Link></li>
                            <li><Link to='/todos'>Список заметок</Link></li>
                          </ul>
                     </nav>
                     <Switch>
                         <Route path='/' exact component={() => <UserList users = {this.state.users}/>} />
-                        <Route path='/projects' exact component={() => <ProjectList projects = {this.state.projects}/>} />
+                        <Route path='/projects' exact component={
+                            () => <ProjectList projects = {this.state.projects}
+                                               deleteProject={(id) => this.deleteProject(id)}/>} />
+                        <Route path='/projects/create' exact component={
+                            () => <ProjectForm users = {this.state.users} createProject={
+                                (name, repo, users) => this.createProject(name, repo, users)}/>} />
                         <Route path='/todos' exact component={() => <ToDoList todos = {this.state.todos}/>} />
                         <Route path='/user/:id' component={() => <UserToDoList todos = {this.state.todos}/>} />
-                        <Route path='/project/:id' component={() => <ProjectToDoList todos = {this.state.todos}/>} />
+                        <Route path='/project/:id' component={
+                            () => <ProjectToDoList todos = {this.state.todos}
+                                                   users = {this.state.users}
+                                                   deleteToDo={(id) => this.deleteToDo(id)}
+                                                   createToDo={(project, text_todo, user) => this.createToDo(project, text_todo, user)}
+                            />} />
                         <Redirect from='/users' to='/' />
                         <Route component={NotFound} />
                     </Switch>
