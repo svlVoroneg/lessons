@@ -92,10 +92,17 @@ WSGI_APPLICATION = 'svl.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #   'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': BASE_DIR / 'db.sqlite3',
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'rest_db',
+        'USER': 'svl',
+        'PASSWORD': 'Zaq12wsx',
+        'HOST': 'db',
+        'PORT': '5432',
+        }
 }
 
 AUTH_USER_MODEL = 'ident.CustomUser'
